@@ -1,0 +1,11 @@
+[Unit]
+Description=uWSGI instance to serve agenda
+
+[Service]
+ExecStartPre=-/usr/bin/bash -c 'mkdir -p /run/uwsgi/agenda; chown agenda:nginx /run/uwsgi/agenda'
+ExecStart=/usr/bin/bash -c 'cd /home/agenda/www; source env/bin/activate; uwsgi --ini peuyeum.ini'
+
+[Install]
+WantedBy=multi-user.target
+
+
