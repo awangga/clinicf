@@ -22,7 +22,7 @@ class Signapp(object):
 
 	def opendb(self): 
 		self.conn = pymongo.MongoClient(config.mongohost, config.mongoport)
-		self.db = self.conn.signapp
+		self.db = self.conn.klinik
 	
 	def tokenUri(self):
 		return config.tokenuri
@@ -91,9 +91,9 @@ class Signapp(object):
 			return "done"
 
 	def insertSign(self,NPM,Nilai,Pembimbing,Topik):
-		self.db.sign
+		self.db.cat
 		doc = {"NPM":NPM,"Nilai":int(Nilai),"waktu":time.strftime("%d/%m/%Y"),"Pembimbing":Pembimbing,"Topik":Topik}
-		idProcess = self.db.sign.insert_one(doc).inserted_id
+		idProcess = self.db.cat.insert_one(doc).inserted_id
 		return str(doc)
 
 	def encodeData(self,msg):
