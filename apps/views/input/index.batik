@@ -1,0 +1,65 @@
+<h2>%Nama%</h2>
+ID : %UID%<br>
+Nama : %Nama%
+<div class="square" id="square">
+Catatan : <br>
+<textarea rows="10vw" cols="20vw" id="cat"></textarea>
+<br>
+<input type="hidden" id="uid" value="%UID%"><br>
+<button class="button" type="button" onclick="myFunction()">Submit</button>
+</div>
+<br><div id="Message"></div><br>
+
+
+<script>
+	var id_token;
+	document.getElementById('square').style.visibility = "hidden";
+
+	function myFunction() {
+
+        var y,z,text;
+		y = document.getElementById("uid").value;
+		z = document.getElementById("cat").value;
+
+        if (isNaN(x) || x < 1 || x > 10) {
+        	text = "Nilai tidak valid";
+			document.getElementById("Message").innerHTML = text;
+        } else {
+			console.log("ID Token: " + id_token);
+        	var xhr = new XMLHttpRequest();
+        	xhr.open('POST', './%URI%');
+        	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        	xhr.onload = function() {
+                	if(xhr.responseText == "invalid"){
+			console.log('Signed in as: ' + xhr.responseText);
+			document.getElementById('Message').innerHTML = "Bukan email institusi,klik log out dibawah dan login kembali";
+			document.getElementById('square').style.visibility = "hidden";
+			document.getElementById('signout').style.visibility = "visible";
+			}else if((xhr.responseText == "exist")){
+			document.getElementById('Message').innerHTML = "Masih ada hari esok yang cerah untuk bimbingan kembali :) ";
+                        document.getElementById('square').style.visibility = "hidden";
+			}else if((xhr.responseText == "expire")){
+                        document.getElementById('Message').innerHTML = "Session Expire, silahkan scan ulang kembali";
+                        document.getElementById('square').style.visibility = "hidden";
+			}else{
+			console.log('Signed in as: ' + xhr.responseText);
+                        document.getElementById('Message').innerHTML = "Sudah Masuk : " + xhr.responseText;
+                        document.getElementById('square').style.visibility = "hidden";
+			}
+		};
+		xhr.send('token=' + id_token +'&UID='+ y +"&cat="+ z );
+		console.log("UID: " + y);
+		console.log("Catatan: " + z)
+		console.log("respon: " + text);
+        }
+        }
+
+	function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+				document.getElementById('signout').style.visibility = "hidden";
+        		document.getElementById('button').style.visibility = "visible";
+                });
+        }
+    </script>
