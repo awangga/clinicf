@@ -36,7 +36,8 @@ class Signapp(object):
 
 	def urlEncode16(self,uri):
 		ln = len(uri)
-		sp = 16 - ln - len(str(ln))
+		multihex = (ln/16)*16+16
+		sp = multihex - ln - len(str(ln))
 		if ln>9:
 			dt = str(ln)+uri+self.random(sp)
 		else:

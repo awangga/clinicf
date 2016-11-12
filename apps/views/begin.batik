@@ -1,32 +1,31 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Agenda Presiden Republik Indonesia</title>
-    <link rel="stylesheet" href="./css/ol.css" type="text/css">
-    <script src="./js/ol.js"></script>
-    <script src="./js/jquery-2.2.3.min.js"></script>
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script src="./js/bootstrap.min.js"></script>
-    <style>
-      .marker {
-        width: 20px;
-        height: 20px;
-        border: 1px solid #088;
-        border-radius: 10px;
-        background-color: #0FF;
-        opacity: 0.5;
-      }
-      .overlay {
-        text-decoration: none;
-        color: white;
-        font-size: 11pt;
-        font-weight: bold;
-        text-shadow: black 0.1em 0.1em 0.2em;
-      }
-      .popover-content {
-        min-width: 180px;
-      }
-    </style> 
- </head>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1092799040278-3dcl923ahbmbr3amtblha5mcblhim5a6.apps.googleusercontent.com">
+	<link href='http://www.ngabara.ga/favicon.ico' rel='icon' type='image/x-icon'/>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <title>Aplikasi Klinik</title>
+<style>
+.square {
+    background: #f2f2f2;
+    width: 35vw;
+    height: initial;
+    margin-left: 1vw;
+}
+.square h1 {
+    color: #000;
+}
+input[type="text"] { font-size: 10vw; width: 15vw;}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 1vw 1vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 3vw;
+}
+</style>	
+</head>
   <body>
-	

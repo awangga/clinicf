@@ -2,6 +2,7 @@
 
 from cgi import parse_qs
 from lib import signapp
+import re
 
 def application(environ, start_response):
 	## passing environ uwsgi PARAM
@@ -9,35 +10,40 @@ def application(environ, start_response):
 		request_body_size = int(environ.get('CONTENT_LENGTH', 0))
 	except (ValueError):
 		request_body_size = 0
-	uri = environ['REQUEST_URI']
+	origin = environ['REQUEST_URI']
 	request_body = environ['wsgi.input'].read(request_body_size)
 	post = parse_qs(request_body)
 	## Declare apps
 	sign = signapp.Signapp()
 	## Menu Logic
-	url=sign.urlDecode16(uri[1:])
-	if sign.getMenu(url[:3])=="key":
-		data = url[3:]
-
+	url=sign.urlDecode16(origin[1:])
+	uri=url.split('%')
+	if sign.getMenu(uri[0])=="key":
+		mod = 'apps.controllers.'+uri[1]
+		func = uri[2]
+		a = __import__(mod,fromlist=[func])
+		m = getattr(a,func)
+		rep = m(uri[3])
+		text = sign.getHtml(uri[1])
+		
+		rep = dict((re.escape(k), v) for k, v in rep.iteritems())
+		pattern = re.compile("|".join(rep.keys()))
+		result = pattern.sub(lambda m: rep[re.escape(m.group(0))], text)
+		
 		hbegin = sign.getHtmlBegin()
-		result = sign.getHtml(data)
 		hend = sign.getHtmlEnd()
 
 		respon = hbegin + result + hend
-	elif sign.getMenu(url[:3])=="token":
+	elif sign.getMenu(uri[0])=="token":
 		token = post.get('token', [''])[0]
-		npm = post.get('NPM', [''])[0]
-		numb = post.get('Nilai', [''])[0]
-		pemb = post.get('Topik', [''])[0]
+		UID = uri[1]
+		numb = post.get('cat', [''])[0]
 		html = sign.getTokenData(token)
 		email = sign.getJsonData('email',html)
-		if sign.emailAcl(email):
-			if sign.getTTL(uri[1:]):
-				respon = sign.insertTodayOnly(npm,numb,email,pemb)
-			else:
-				respon = "expire"
+		if sign.getTTL(origin[1:]):
+			respon = sign.insertTodayOnly(npm,numb,email,pemb)
 		else:
-			respon = "invalid"
+			respon = "expire"
 	else:
 		respon = """
 		<html>
