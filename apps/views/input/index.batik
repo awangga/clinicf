@@ -1,9 +1,109 @@
-<h2>%Nama%</h2>
+<h2>%Name%</h2>
+<div class="regform" id="regform">
+<div class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Formulir Pendaftaran</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="fn">Nama Lengkap</label>  
+  <div class="col-md-4">
+  <input id="nama" name="nama" type="text" placeholder="nama lengkap" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="ln">Tanggal Lahir</label>  
+  <div class="col-md-4">
+  <input id="tanggal" name="tanggal" type="text" placeholder="Tanggal Lahir" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="add1">Alamat</label>  
+  <div class="col-md-4">
+  <input id="alamat" name="alamat" type="text" placeholder="Alamat" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="ctry">Pekerjaan</label>  
+  <div class="col-md-4">
+  <input id="pekerjaan" name="pekerjaan" type="pekerjaan" placeholder="pekerjaan" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="phone">Telepon</label>  
+  <div class="col-md-4">
+  <input id="telepon" name="telepon" type="text" placeholder="Telepon" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Multiple Radios (inline) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Training">Jenis Kelamin</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="Training-0">
+      <input type="radio" name="gender" id="gender" value="laki-laki" checked="checked">
+      Laki-Laki
+    </label> 
+    <label class="radio-inline" for="Training-1">
+      <input type="radio" name="gender" id="gender" value="perempuan">
+      Perempuan
+    </label>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">Agama</label>
+  <div class="col-md-4">
+    <select id="agama" name="agama" class="form-control input-md">
+      <option>Islam</option>
+      <option>Kristen</option>
+	  <option>Katholik</option>
+	  <option>Hindu</option>
+	  <option>Budha</option>
+	  <option>lainnya</option>
+    </select>
+  </div>
+</div>
+
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" onclick="postReg()" class="btn btn-primary">SUBMIT</button>
+  </div>
+</div>
+
+</fieldset>
+</div>
+
+</div>
+
+
+
+
+<div class="recform" id="recform">
+
 ID : %UID%<br>
-Nama : %Nama%
-
-<div class="square" id="square">
-
+Nama : %Name%<br>
 Catatan : <br>
 <textarea rows="10vw" cols="20vw" id="cat"></textarea>
 <br>
@@ -16,7 +116,8 @@ Catatan : <br>
 
 
 <script>
-	document.getElementById('square').style.visibility = "hidden";
+	document.getElementById('regform').style.visibility = "%regform%";
+	document.getElementById('recform').style.visibility = "%recform%";
 	function myFunction() {
         var y,z,text;
 		y = document.getElementById("uid").value;
@@ -28,21 +129,54 @@ Catatan : <br>
                	if(xhr.responseText == "invalid"){
 					console.log('Signed in as: ' + xhr.responseText);
 					document.getElementById('Message').innerHTML = "Bukan email institusi,klik log out dibawah dan login kembali";
-					document.getElementById('square').style.visibility = "hidden";
+					document.getElementById('recform').style.visibility = "hidden";
 				}else if((xhr.responseText == "exist")){
 					document.getElementById('Message').innerHTML = "Masih ada hari esok yang cerah untuk bimbingan kembali :) ";
-                    document.getElementById('square').style.visibility = "hidden";
+                    document.getElementById('recform').style.visibility = "hidden";
 				}else if((xhr.responseText == "expire")){
                     document.getElementById('Message').innerHTML = "Session Expire, silahkan scan ulang kembali";
-                    document.getElementById('square').style.visibility = "hidden";
+                    document.getElementById('recform').style.visibility = "hidden";
 				}else{
 					console.log('Signed in as: ' + xhr.responseText);
                     document.getElementById('Message').innerHTML = "Sudah Masuk : " + xhr.responseText;
-                    document.getElementById('square').style.visibility = "hidden";
+                    document.getElementById('recform').style.visibility = "hidden";
 				}
 		};
 		xhr.send("&UID="+ y +"&cat="+ z );
 		console.log("UID: " + y);
 		console.log("Catatan: " + z);
+    }
+	function postReg() {
+        var nama,tanggal_lahir,alamat,pekerjaan,telepon,gender,agama;
+		nama = document.getElementById("nama").value;
+		tanggal_lahir = document.getElementById("tanggal").value;
+		alamat = document.getElementById("alamat").value;
+		pekerjaan = document.getElementById("pekerjaan").value;
+		telepon = document.getElementById("telepon").value;
+		gender = document.getElementById("gender").value;
+		agama = document.getElementById("agama").value;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', './%URI%');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+               	if(xhr.responseText == "invalid"){
+					console.log('Signed in as: ' + xhr.responseText);
+					document.getElementById('Message').innerHTML = "Bukan email institusi,klik log out dibawah dan login kembali";
+					document.getElementById('recform').style.visibility = "hidden";
+				}else if((xhr.responseText == "exist")){
+					document.getElementById('Message').innerHTML = "Masih ada hari esok yang cerah untuk bimbingan kembali :) ";
+                    document.getElementById('recform').style.visibility = "hidden";
+				}else if((xhr.responseText == "expire")){
+                    document.getElementById('Message').innerHTML = "Session Expire, silahkan scan ulang kembali";
+                    document.getElementById('recform').style.visibility = "hidden";
+				}else{
+					console.log('Signed in as: ' + xhr.responseText);
+                    document.getElementById('Message').innerHTML = "Sudah Masuk : " + xhr.responseText;
+                    document.getElementById('recform').style.visibility = "hidden";
+				}
+		};
+		xhr.send("nama="+ nama +"&tanggal_lahir="+ tanggal_lahir +"&alamat="+ alamat +"&pekerjaan="+ pekerjaan+"&telepon="+ telepon+"&gender="+ gender+"&agama="+ agama);
+		console.log("Nama: " + nama);
+		console.log("tanggal_lahir: " + tanggal_lahir);
     }
 </script>
