@@ -35,15 +35,11 @@ def application(environ, start_response):
 
 		respon = hbegin + result + hend
 	elif sign.getMenu(uri[0])=="token":
-		token = post.get('token', [''])[0]
-		UID = uri[1]
-		numb = post.get('cat', [''])[0]
-		html = sign.getTokenData(token)
-		email = sign.getJsonData('email',html)
-		if sign.getTTL(origin[1:]):
-			respon = sign.insertTodayOnly(npm,numb,email,pemb)
-		else:
-			respon = "expire"
+		mod = 'apps.controllers.'+uri[1]
+		func = uri[2]
+		a = __import__(mod,fromlist=[func])
+		m = getattr(a,func)
+		respon = m(uri[3],post)
 	else:
 		respon = """
 		<html>

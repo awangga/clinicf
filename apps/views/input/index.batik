@@ -139,7 +139,8 @@ Catatan : <br>
 				}else{
 					console.log('Signed in as: ' + xhr.responseText);
                     document.getElementById('Message').innerHTML = "Sudah Masuk : " + xhr.responseText;
-                    document.getElementById('recform').style.visibility = "hidden";
+                    document.getElementById('recform').style.visibility = "visible";
+					document.getElementById('regform').style.visibility = "hidden";
 				}
 		};
 		xhr.send("&UID="+ y +"&cat="+ z );
@@ -176,7 +177,7 @@ Catatan : <br>
 				}
 		};
 		xhr.send("nama="+ nama +"&tanggal_lahir="+ tanggal_lahir +"&alamat="+ alamat +"&pekerjaan="+ pekerjaan+"&telepon="+ telepon+"&gender="+ gender+"&agama="+ agama);
-		console.log("Nama: " + nama);
-		console.log("tanggal_lahir: " + tanggal_lahir);
+		console.log("Nama: " + gender);
+		console.log("tanggal_lahir: " + agama);
     }
 </script>

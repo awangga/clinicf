@@ -71,7 +71,7 @@ def encodeData16(msg):
 	return cp.encode("hex")
 
 def decodeData16(msg):
-	obj=AES.new(self.key,AES.MODE_CBC,self.iv)
+	obj=AES.new(config.key,AES.MODE_CBC,config.iv)
 	dec = msg.decode("hex")
 	return obj.decrypt(dec)
 

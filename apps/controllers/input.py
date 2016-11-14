@@ -14,15 +14,20 @@ def ktp(uridt='null'):
 		'%regform%':'visible',
 		'%recform%':'hidden'
 		}
-	if uridt=='04123C72862B80':
-		dt['%Name%']='Mila Anisa'
-	elif uridt=='041C2E0A422A80':
-		dt['%Name%']='Rolly Maulana Awangga'
-	else:
-		dt['%Name%']='Ieu lain KTP lur!'
-	thisURI=urlEncode16(tokenuri+'%'+uridt)
+	thisURI=urlEncode16(tokenuri+'%'+'input%postReg'+'%'+uridt)
 	setTTL(thisURI)
 	dt['%URI%']=thisURI
 	dt['%UID%']=uridt
 	return dt
 	
+def postReg(getdt,postdt):
+	nama = postdt.get('nama', [''])[0]
+	tanggal_lahir = postdt.get('tanggal_lahir', [''])[0]
+	alamat = postdt.get('alamat', [''])[0]
+	pekerjaan = postdt.get('pekerjaan', [''])[0]
+	telepon = postdt.get('telepon', [''])[0]
+	gender = postdt.get('gender', [''])[0]
+	agama = postdt.get('agama', [''])[0]
+	uid = getdt
+	insertProfile(uid,nama,tanggal_lahir,alamat,pekerjaan,telepon,gender,agama)
+	return nama
