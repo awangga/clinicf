@@ -55,39 +55,6 @@ def getTTL(token):
 	myredis = redis.Redis()
 	return myredis.get(token)
 
-def getAllSign(NPM):
-	self.db.sign
-	return self.db.sign.find({"NPM":NPM},{ "waktu": 1, "Nilai": 1, "Topik": 1,"_id": 0 })
-
-def getLastSign(NPM):
-	self.db.sign
-	return self.db.sign.find_one({"NPM":NPM})
-
-def getToday(NPM):
-	self.db.sign
-	return self.db.sign.find({"NPM":NPM,"waktu":time.strftime("%d/%m/%Y")})
-
-def isIndexExist(cursor):
-	try:
-		cursor[0]
-		return True
-	except IndexError:
-   			return False  
-
-def insertTodayOnly(NPM,Nilai,Pembimbing,Topik):
-	cur = self.getToday(NPM)
-	if self.isIndexExist(cur):
-		return "exist"
-	else:
-		self.insertSign(NPM,Nilai,Pembimbing,Topik)
-		return "done"
-
-def insertSign(NPM,Nilai,Pembimbing,Topik):
-	self.db.sign
-	doc = {"NPM":NPM,"Nilai":int(Nilai),"waktu":time.strftime("%d/%m/%Y"),"Pembimbing":Pembimbing,"Topik":Topik}
-	idProcess = self.db.sign.insert_one(doc).inserted_id
-	return str(doc)
-
 def encodeData(msg):
 	obj=AES.new(self.key,AES.MODE_CFB,self.iv)
 	cp = obj.encrypt(msg)
