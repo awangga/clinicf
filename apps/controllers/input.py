@@ -7,7 +7,8 @@ def ktp(uridt='null'):
 	if isProfileExist(uridt):
 		dt = {
 		'%regform%':'none',
-		'%recform%':'block'
+		'%recform%':'block',
+		'%Name%':'anu'
 		}
 	else:
 		dt = {
