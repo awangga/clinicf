@@ -116,8 +116,8 @@ Catatan : <br>
 
 
 <script>
-	document.getElementById('regform').style.visibility = "%regform%";
-	document.getElementById('recform').style.visibility = "%recform%";
+	document.getElementById('regform').style.display = "%regform%";
+	document.getElementById('recform').style.display = "%recform%";
 	function myFunction() {
         var y,z,text;
 		y = document.getElementById("uid").value;
@@ -129,18 +129,18 @@ Catatan : <br>
                	if(xhr.responseText == "invalid"){
 					console.log('Signed in as: ' + xhr.responseText);
 					document.getElementById('Message').innerHTML = "Bukan email institusi,klik log out dibawah dan login kembali";
-					document.getElementById('recform').style.visibility = "hidden";
+					document.getElementById('recform').style.display = "none";
 				}else if((xhr.responseText == "exist")){
 					document.getElementById('Message').innerHTML = "Masih ada hari esok yang cerah untuk bimbingan kembali :) ";
-                    document.getElementById('recform').style.visibility = "hidden";
+                    document.getElementById('recform').style.display = "none";
 				}else if((xhr.responseText == "expire")){
                     document.getElementById('Message').innerHTML = "Session Expire, silahkan scan ulang kembali";
-                    document.getElementById('recform').style.visibility = "hidden";
+                    document.getElementById('recform').style.display = "none";
 				}else{
 					console.log('Signed in as: ' + xhr.responseText);
                     document.getElementById('Message').innerHTML = "Sudah Masuk : " + xhr.responseText;
-                    document.getElementById('recform').style.visibility = "visible";
-					document.getElementById('regform').style.visibility = "hidden";
+                    document.getElementById('recform').style.display = "block";
+					document.getElementById('regform').style.display = "none";
 				}
 		};
 		xhr.send("&UID="+ y +"&cat="+ z );
@@ -163,17 +163,17 @@ Catatan : <br>
                	if(xhr.responseText == "invalid"){
 					console.log('Signed in as: ' + xhr.responseText);
 					document.getElementById('Message').innerHTML = "Bukan email institusi,klik log out dibawah dan login kembali";
-					document.getElementById('recform').style.visibility = "hidden";
+					document.getElementById('recform').style.display = "none";
 				}else if((xhr.responseText == "exist")){
 					document.getElementById('Message').innerHTML = "Masih ada hari esok yang cerah untuk bimbingan kembali :) ";
-                    document.getElementById('recform').style.visibility = "hidden";
+                    document.getElementById('recform').style.display = "none";
 				}else if((xhr.responseText == "expire")){
                     document.getElementById('Message').innerHTML = "Session Expire, silahkan scan ulang kembali";
-                    document.getElementById('recform').style.visibility = "hidden";
+                    document.getElementById('recform').style.display = "none";
 				}else{
 					console.log('Signed in as: ' + xhr.responseText);
                     document.getElementById('Message').innerHTML = "Sudah Masuk : " + xhr.responseText;
-                    document.getElementById('recform').style.visibility = "hidden";
+                    document.getElementById('regform').style.display = "none";
 				}
 		};
 		xhr.send("nama="+ nama +"&tanggal_lahir="+ tanggal_lahir +"&alamat="+ alamat +"&pekerjaan="+ pekerjaan+"&telepon="+ telepon+"&gender="+ gender+"&agama="+ agama);

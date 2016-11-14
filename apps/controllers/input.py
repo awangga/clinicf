@@ -6,13 +6,13 @@ from apps.models.input import *
 def ktp(uridt='null'):
 	if isProfileExist(uridt):
 		dt = {
-		'%regform%':'hidden',
-		'%recform%':'visible'
+		'%regform%':'none',
+		'%recform%':'block'
 		}
 	else:
 		dt = {
-		'%regform%':'visible',
-		'%recform%':'hidden'
+		'%regform%':'none',
+		'%recform%':'block'
 		}
 	thisURI=urlEncode16(tokenuri+'%'+'input%postReg'+'%'+uridt)
 	setTTL(thisURI)
