@@ -36,9 +36,9 @@ def application(environ, start_response):
 	elif sign.getMenu(uri[0])=="token":
 		mod = 'apps.controllers.'+uri[1]
 		func = uri[2]
-		a = __import__(mod,fromlist=[func])
-		m = getattr(a,func)
-		respon = m(uri[3],post)
+		a = __import__(mod,fromlist=['Controller'])
+		b = getattr(a,'Controller')()
+		respon = getattr(b,func)(uri[3],post)
 	else:
 		respon = """
 		<html>

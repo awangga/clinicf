@@ -13,8 +13,8 @@ class Controller(object):
 			}
 		else:
 			dt = {
-			'%regform%':'none',
-			'%recform%':'block'
+			'%regform%':'block',
+			'%recform%':'none'
 			}
 		thisURI=urlEncode16(tokenuri+'%'+'input%postReg'+'%'+uridt)
 		setTTL(thisURI)
