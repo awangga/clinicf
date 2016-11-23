@@ -2,7 +2,7 @@
 
 from cgi import parse_qs
 from lib import signapp
-import re
+from lib import basreng
 
 def application(environ, start_response):
 	## passing environ uwsgi PARAM
@@ -21,14 +21,13 @@ def application(environ, start_response):
 	if sign.getMenu(uri[0])=="key":
 		mod = 'apps.controllers.'+uri[1]
 		func = uri[2]
-		a = __import__(mod,fromlist=[func])
-		m = getattr(a,func)
-		rep = m(uri[3])
+		a = __import__(mod,fromlist=['Controller'])
+		b = getattr(a,'Controller')()
+		rep=getattr(b,func)(uri[3])
+
 		text = sign.getHtml(uri[1])
 		
-		rep = dict((re.escape(k), v) for k, v in rep.iteritems())
-		pattern = re.compile("|".join(rep.keys()))
-		result = pattern.sub(lambda m: rep[re.escape(m.group(0))], text)
+		result = basreng.dictView(rep,text)
 		
 		hbegin = sign.getHtmlBegin()
 		hend = sign.getHtmlEnd()
