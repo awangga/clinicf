@@ -1,11 +1,12 @@
 import sys
 sys.path.append('../../')
 from lib.cilok import urlEncode16,tokenuri,setTTL
-from apps.models.input import *
+from apps.models import profile
+profile = profile.Model()
 
 class Controller(object):
 	def ktp(self,uridt='null'):
-		if isProfileExist(uridt):
+		if profile.isExist(uridt):
 			dt = {
 			'%regform%':'none',
 			'%recform%':'block',
@@ -31,6 +32,6 @@ class Controller(object):
 		gender = postdt.get('gender', [''])[0]
 		agama = postdt.get('agama', [''])[0]
 		uid = getdt
-		insertProfile(uid,nama,tanggal_lahir,alamat,pekerjaan,telepon,gender,agama)
+		profile.create(uid,nama,tanggal_lahir,alamat,pekerjaan,telepon,gender,agama)
 		return nama
 		
